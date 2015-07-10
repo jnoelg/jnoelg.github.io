@@ -5,15 +5,15 @@
     <title>My Simple Watch Configurable</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.css" />
+  	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  	<script src="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.js"></script>
   </head>
   
   <body>
-    <div data-role="page" id="main">
+    <div data-role="page" data-theme="a" id="main">
       
-      <div data-role="header" class="jqm-header">
+      <div data-role="header" data-theme="a">
         <h1>My Simple Watch</h1>
       </div>
       
@@ -35,17 +35,11 @@
           </select>
         </div>
         
-        <div class="ui-body ui-body-b">
-          <fieldset class="ui-grid-a">
-            <div class="ui-block-a">
-              <button type="submit" data-theme="d" id="b-cancel">Cancel</button>
-            </div>
-            <div class="ui-block-b">
-              <button type="submit" data-theme="a" id="b-submit">Submit</button>
-            </div>
-          </fieldset>
+        <div class="ui-grid-a">
+        	<div class="ui-block-a"><button type="submit" data-theme="a" id="b-cancel" data-icon="delete">Cancel</button></div>
+        	<div class="ui-block-b"><button type="submit" data-theme="b" id="b-submit" data-icon="check">Submit</button></div>	   
         </div>
-        
+
       </div>
       
     </div>
