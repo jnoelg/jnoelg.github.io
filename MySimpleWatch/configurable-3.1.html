@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MySimpleWatch Configurable</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="../slate/css/slate.min.css" />
+  </head>
+  
+  <body>
+    <form id="main-form">
+      <div class="item-container">
+        <div class="item-container-header">Time Display</div>
+        <div class="item-container-content">
+          <label class="item">Hours in bold 
+		  <input type="checkbox" class="item-toggle" name="hh-in-bold" id="hh-in-bold" /></label>
+		  <label class="item">Minutes in bold 
+          <input type="checkbox" class="item-toggle" name="mm-in-bold" id="mm-in-bold" /></label>
+		</div>
+      </div>
+	  
+      <div class="item-container">
+        <div class="item-container-header">Date Display</div>
+        <div class="item-container-content">
+          <label class="item">Language 
+          <select name="locale" id="locale" dir="rtl" class="item-select">
+            <option class="item-select-option" value="default" selected="selected">Default</option>
+            <option class="item-select-option" value="en">English</option>
+            <option class="item-select-option" value="fr">French</option>
+            <option class="item-select-option" value="de">German</option>
+            <option class="item-select-option" value="es">Spanish</option>
+          </select></label>
+        </div>
+        <div class="item-container-footer">If the "default" Pebble watch language is not detected properly, you can force the use of a specific language.</div>
+      </div>
+	  
+      <div class="item-container">
+        <div class="button-container">
+          <input type="button" id="b-apply" class="item-button" value="Apply" />
+        </div>
+      </div>
+    </form>
+	
+	<script>
+	  function getOptions() {
+        var options = {}
+        //Add all textual values
+        $('textarea, select, [type="hidden"], [type="password"], [type="text"]').each(function(){options[$(this).attr('id')] = $(this).val();})
+        //Add all checkbox type values
+        $('[type="radio"], [type="checkbox"]').each(function(){options[$(this).attr('id')] = $(this).is(':checked') ? "1" : "0";})
+		
+		//console.log(options);
+        return options;
+      }
+      
+      function setOptions(optionsJSON) {
+        // validate that optionsJSON is not null
+        if (optionsJSON) {
+          // deserialize optionsJSON
+          var options = jQuery.parseJSON(decodeURIComponent(optionsJSON));
+		  // time display
+		  if (options["hh-in-bold"]) {
+			$("#"+["hh-in-bold"]).prop('checked', options["hh-in-bold"] == "1");
+		  }
+		  if (options["mm-in-bold"]) {
+			$("#"+["mm-in-bold"]).prop('checked', options["mm-in-bold"] == "1");
+		  }
+		  // date display
+		  if (options.locale) {
+			$("#"+["locale"]).val(options["locale"]);
+		  }
+        }
+      }
+      
+      $().ready(function() {
+        
+        $("#b-cancel").click(function() {
+          console.log("Cancel");
+          var location = "pebblejs://close";
+          console.log(location);
+          document.location = location;
+        });
+        
+        $("#b-apply").click(function() {
+          console.log("Apply");
+          var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(getOptions()));
+          console.log(location);
+          document.location = location;
+        });
+        
+        //Set form values to whatever is passed in.
+		setOptions(window.location.search.substring(1));
+      });
+	</script>
+    <script type="text/javascript" src="../slate/js/slate.min.js"></script>
+  </body>
+</html>
