@@ -1,0 +1,19 @@
+.page-header {
+  padding: 0px;
+  color: #FFFFFF;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #292a2e;
+  text-align: center;
+  height: 52px;  }
+  
+ .page-header p {
+   padding: 14px 10px;
+   font-family: 'PF DinDisplay Pro', sans-serif;
+   text-transform: uppercase;
+   font-size: 1.5em;
+ } 
+ 
+ .page-header .item-button {
+   background-color: #4c4e55;
+ } 

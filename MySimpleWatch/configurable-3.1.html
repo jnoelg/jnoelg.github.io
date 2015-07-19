@@ -6,10 +6,16 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="../slate/css/slate.min.css" />
+	<link rel="stylesheet" href="slate_ex.css" />
   </head>
   
   <body>
     <form id="main-form">
+	  <div class="page-header">
+		<p>My Simple Watch</p>
+		<input type="button" id="b-cancel" class="item-button item-input-button" value="Cancel">
+	  </div>
+	
       <div class="item-container">
         <div class="item-container-header">Time Display</div>
         <div class="item-container-content">
@@ -37,7 +43,7 @@
 	  
       <div class="item-container">
         <div class="button-container">
-          <input type="button" id="b-apply" class="item-button" value="Apply" />
+		  <input type="button" id="b-apply" class="item-button" value="Apply" />
         </div>
       </div>
     </form>
