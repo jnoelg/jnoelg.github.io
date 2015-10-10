@@ -9,7 +9,7 @@
   
  .page-header p {
    padding: 14px 10px;
-   font-family: 'PF DinDisplay Pro', sans-serif;
+   font-family: 'PFDinDisplayPro-Light', PFDinDisplayProLightWebfont, sans-serif;
    text-transform: uppercase;
    font-size: 1.5em;
  } 
