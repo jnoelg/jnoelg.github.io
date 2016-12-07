@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MySimpleWatch Configurable</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="../slate/css/slate.min.css" />
+	<link rel="stylesheet" href="slate_ex.css" />
+  </head>
+  
+  <body>
+    <form id="main-form">
+	  <div class="page-header">
+		<p>My Simple Watch</p>
+		<input type="button" id="b-cancel" class="item-button item-input-button" value="Cancel">
+	  </div>
+	
+      <div class="item-container">
+        <div class="item-container-header">Time Display</div>
+        <div class="item-container-content">
+          <label class="item">Hours in bold 
+		  <input type="checkbox" class="item-toggle" name="hh-in-bold" id="hh-in-bold" /></label>
+		  <label class="item">Minutes in bold 
+          <input type="checkbox" class="item-toggle" name="mm-in-bold" id="mm-in-bold" /></label>
+		  <label class="item">Hide hours leading zero 
+          <input type="checkbox" class="item-toggle" name="hh-strip-zero" id="hh-strip-zero" /></label>
+          <div class="item-container-content">
+          <label class="item">Time Separator 
+          <select name="time-sep" id="time-sep" dir="rtl" class="item-select">
+            <option class="item-select-option" value="none" selected="selected">None</option>
+            <option class="item-select-option" value="square">Square</option>
+            <option class="item-select-option" value="round">Round</option>
+            <option class="item-select-option" value="squareb">Square_Bold</option>
+            <option class="item-select-option" value="roundb">Round_Bold</option>
+          </select></label>
+        </div>
+		</div>
+      </div>
+	  
+      <div class="item-container">
+        <div class="item-container-header">Date Display</div>
+        <div class="item-container-content">
+          <label class="item">Language 
+          <select name="locale" id="locale" dir="rtl" class="item-select">
+            <option class="item-select-option" value="default" selected="selected">Default</option>
+            <option class="item-select-option" value="en">English</option>
+            <option class="item-select-option" value="fr">French</option>
+            <option class="item-select-option" value="de">German</option>
+			<option class="item-select-option" value="it">Italian</option>
+            <option class="item-select-option" value="es">Spanish</option>
+          </select></label>
+        </div>
+        <div class="item-container-footer">If the "default" Pebble watch language is not detected properly, you can force the use of a specific language.</div>
+      </div>
+	  
+      <div class="item-container">
+        <div class="item-container-header">Lost Bluetooth Settings</div>
+        <div class="item-container-content">
+          <label class="item">Vibrate every minute
+		  <input type="checkbox" class="item-toggle" name="repeat-vib" id="repeat-vib" /></label>
+        </div>
+      </div>	  
+	  
+      <div class="item-container">
+        <div class="button-container">
+		  <input type="button" id="b-apply" class="item-button" value="Apply" />
+        </div>
+      </div>
+    </form>
+	
+    <script>
+      function getOptions() {
+          var options = {}
+          //Add all textual values
+          $('textarea, select, [type="hidden"], [type="password"], [type="text"]').each(function(){options[$(this).attr('id')] = $(this).val();})
+          //Add all checkbox type values
+          $('[type="radio"], [type="checkbox"]').each(function(){options[$(this).attr('id')] = $(this).is(':checked') ? "1" : "0";})
+      
+      //console.log(options);
+          return options;
+        }
+        
+        function setOptions(optionsJSON) {
+          // validate that optionsJSON is not null
+          if (optionsJSON) {
+            // deserialize optionsJSON
+            var options = jQuery.parseJSON(decodeURIComponent(optionsJSON));
+            // time display
+            if (options["hh-in-bold"]) {
+              $("#"+["hh-in-bold"]).prop('checked', options["hh-in-bold"] == "1");
+            }
+            if (options["mm-in-bold"]) {
+              $("#"+["mm-in-bold"]).prop('checked', options["mm-in-bold"] == "1");
+            }
+            if (options["hh-strip-zero"]) {
+              $("#"+["hh-strip-zero"]).prop('checked', options["hh-strip-zero"] == "1");
+            }
+            if (options["time-sep"]) {
+              $("#"+["time-sep"]).val(options["time-sep"]);
+            }          
+            // date display
+            if (options.locale) {
+              $("#"+["locale"]).val(options.locale);
+            }
+			// repeated vibrabation
+			if (options["repeat-vib"]) {
+              $("#"+["repeat-vib"]).prop('checked', options["repeat-vib"] == "1");
+            }
+          }
+        }
+        
+        $().ready(function() {
+          
+          $("#b-cancel").click(function() {
+            console.log("Cancel");
+            var location = "pebblejs://close";
+            console.log(location);
+            document.location = location;
+          });
+          
+          $("#b-apply").click(function() {
+            console.log("Apply");
+            var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(getOptions()));
+            console.log(location);
+            document.location = location;
+          });
+          
+          //Set form values to whatever is passed in.
+          setOptions(window.location.search.substring(1));
+        });
+    </script>
+    <script type="text/javascript" src="../slate/js/slate.min.js"></script>
+  </body>
+</html>
